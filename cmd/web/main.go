@@ -53,6 +53,15 @@ func main() {
 		"safeHTML": func(html string) template.HTML {
 			return template.HTML(html)
 		},
+		"stars": func(rating int) string {
+			if rating < 0 {
+				rating = 0
+			}
+			if rating > 5 {
+				rating = 5
+			}
+			return strings.Repeat("★", rating) + strings.Repeat("☆", 5-rating)
+		},
 	}
 
 	templateCache, err := render.NewTemplateCache(filepath.Join("ui", "html"), templateFuncs)

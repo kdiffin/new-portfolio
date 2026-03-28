@@ -3,7 +3,7 @@
     {{range .}}
     <div class="contents">
         <a class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000]" href="/{{.Section}}/{{.Slug}}">{{.Title}}</a>
-        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{.PublishedAt.Format "2006-01-02"}}">{{.PublishedAt.Format "Jan 02, 2006"}}</time>
+        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{fmtDate .PublishedAt}}">{{fmtDate .PublishedAt}}</time>
     </div>
     {{end}}
 </div>

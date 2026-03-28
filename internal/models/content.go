@@ -16,18 +16,32 @@ type Entry struct {
 }
 
 type TemplateData struct {
-	Title       string
-	Description string
-	Path        string
+	Title       string // for seo
+	Description string // for seo
+	Path        string // for the navbar highlighting
 	Theme       string
-	Year        int
-	Sections    []SectionLink
+	Year        int           // for the footer
+	Sections    []SectionLink // for the navbar
 	Data        any
 }
 
 type HomePageData struct {
 	WritingEntries []*Entry
 	MicroEntries   []*Entry
+	Books          []BookReview
+}
+
+type BookReview struct {
+	Title      string
+	Author     string
+	FinishedAt time.Time
+	Slug       string
+	Rating     int
+	BodyHTML   template.HTML
+}
+
+type BooksPageData struct {
+	Books []BookReview
 }
 
 type ListPageData struct {

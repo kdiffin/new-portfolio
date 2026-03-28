@@ -12,22 +12,162 @@
   }
 
   .content-body h1 {
-    @apply text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 text-heading light:text-heading-light;
+    @apply text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 mt-8 text-heading light:text-heading-light;
   }
 
   .content-body h2 {
-    @apply text-2xl font-semibold leading-tight tracking-[.009em] mb-2 text-heading light:text-heading-light;
+    @apply text-2xl font-semibold leading-tight tracking-[.009em] mb-2 mt-6 text-heading light:text-heading-light;
   }
 
-  .content-body p, .content-body ul {
+  .content-body h3 {
+    @apply text-xl font-semibold leading-tight tracking-[.009em] mb-2 mt-4 text-heading light:text-heading-light;
+  }
+
+  .content-body p, .content-body ul, .content-body ol {
     @apply my-4;
   }
 
-  .content-body ul ul {
-    @apply m-0;
+  .content-body ul {
+    @apply pl-5;
   }
 
-  .content-body li {
+  .content-body ul li {
     list-style-type: "-  ";
+    @apply mb-1.5 pl-1 leading-relaxed;
+  }
+  
+  .content-body ul li::marker {
+    @apply text-muted light:text-muted-light;
+  }
+
+  .content-body ol {
+    @apply list-decimal pl-8;
+  }
+
+  .content-body ol li {
+    @apply mb-1.5 pl-1 leading-relaxed;
+  }
+
+  .content-body ol li::marker {
+    @apply text-muted light:text-muted-light;
+  }
+
+  .content-body ul ul, .content-body ol ol, .content-body ul ol, .content-body ol ul {
+    @apply my-2;
+  }
+
+  .content-body strong {
+    @apply font-semibold text-heading light:text-heading-light;
+  }
+  
+  .content-body em {
+      @apply italic;
+  }
+
+  .content-body hr {
+    @apply my-8 border-border light:border-border-light;
+  }
+
+  .content-body code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    @apply text-[0.85em] bg-secondary light:bg-secondary-light px-[0.2em] py-[0.1em] rounded whitespace-nowrap;
+  }
+
+  .content-body pre {
+    @apply my-6 p-4 rounded-md overflow-x-auto bg-secondary light:bg-secondary-light border border-border light:border-border-light;
+  }
+
+  .content-body pre code {
+    @apply bg-transparent px-0 py-0 text-[0.85em] whitespace-pre;
+  }
+
+  .content-body blockquote {
+    @apply pl-4 border-l-4 border-border light:border-border-light text-muted light:text-muted-light my-6 italic;
+  }
+
+  .micro-body a {
+    @apply text-body no-underline hover:underline light:text-body-light;
+  }
+
+  .micro-body h1 {
+    @apply text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 mt-4 text-heading light:text-heading-light;
+  }
+  
+  .micro-body h2 {
+    @apply text-2xl font-semibold leading-tight tracking-[.009em] mb-2 mt-4 text-heading light:text-heading-light;
+  }
+
+  .micro-body h3 {
+    @apply text-xl font-semibold leading-tight tracking-[.009em] mb-2 mt-4 text-heading light:text-heading-light;
+  }
+
+  .micro-body p:first-child, .micro-body h1:first-child, .micro-body h2:first-child, .micro-body h3:first-child {
+    @apply mt-0;
+  }
+  
+  .micro-body p:last-child, .micro-body ul:last-child, .micro-body ol:last-child {
+    @apply mb-0;
+  }
+
+  .micro-body p, .micro-body ul, .micro-body ol {
+    @apply my-4;
+  }
+
+  .micro-body ul {
+    @apply pl-5;
+  }
+
+  .micro-body ul li {
+    list-style-type: "-  ";
+    @apply mb-1.5 pl-1 leading-relaxed;
+  }
+  
+  .micro-body ul li::marker {
+    @apply text-muted light:text-muted-light;
+  }
+
+  .micro-body ol {
+    @apply list-decimal pl-8;
+  }
+
+  .micro-body ol li {
+    @apply mb-1.5 pl-1 leading-relaxed;
+  }
+
+  .micro-body ol li::marker {
+    @apply text-muted light:text-muted-light;
+  }
+
+  .micro-body ul ul, .micro-body ol ol, .micro-body ul ol, .micro-body ol ul {
+    @apply my-2;
+  }
+
+  .micro-body strong {
+    @apply font-semibold text-heading light:text-heading-light;
+  }
+  
+  .micro-body em {
+      @apply italic;
+  }
+
+  .micro-body hr {
+    @apply my-8 border-border light:border-border-light;
+  }
+
+  .micro-body code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    @apply text-[0.85em] bg-primary light:bg-primary-light px-[0.2em] py-[0.1em] rounded whitespace-nowrap;
+  }
+
+  .micro-body pre {
+    @apply my-6 p-4 rounded-md overflow-x-auto bg-primary light:bg-primary-light border border-border light:border-border-light;
+  }
+
+  .micro-body pre code {
+    @apply bg-transparent px-0 py-0 text-[0.85em] whitespace-pre;
+  }
+
+  .micro-body blockquote {
+    @apply pl-4 border-l-4 border-border light:border-border-light text-muted light:text-muted-light my-6 italic;
   }
 }

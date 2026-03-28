@@ -17,7 +17,7 @@ func (app *application) routes() http.Handler {
 	mux.HandleFunc("GET /writing/archive/{year}", app.sectionArchiveYear("writing", "archive_year.tmpl"))
 	mux.HandleFunc("GET /writing/tag/{tag}", app.sectionTag("writing", "tag_archive.tmpl"))
 
-	mux.HandleFunc("GET /books-and-papers", app.sectionIndex("books-and-papers", "books_index.tmpl"))
+	mux.HandleFunc("GET /books-and-papers", app.booksAndPapers)
 	mux.HandleFunc("GET /books-and-papers/{slug}", app.sectionShow("books-and-papers", "books_show.tmpl"))
 	mux.HandleFunc("GET /books-and-papers/archive", app.sectionArchive("books-and-papers", "archive_index.tmpl"))
 	mux.HandleFunc("GET /books-and-papers/archive/{year}", app.sectionArchiveYear("books-and-papers", "archive_year.tmpl"))

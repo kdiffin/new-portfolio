@@ -1,0 +1,13 @@
+{{define "micro_card"}}
+<article class="border border-solid border-border rounded-[2px] light:border-border-light">
+    <div class="flex justify-between py-[10px] px-[20px] border-b border-solid border-border light:border-border-light">
+        <a href="/micro/{{.Slug}}" class="text-link font-semibold leading-tight tracking-[.009em] ">{{.Title}}</a>
+        <a href="/micro/{{.Slug}}" class="micro-date">
+            <time datetime="{{.PublishedAt.Format "2006-01-02"}}">{{.PublishedAt.Format "January 02, 2006"}}</time>
+        </a>
+    </div>
+    <div class="bg-secondary py-[10px] px-[20px] light:bg-secondary-light text-base leading-[1.6] text-body light:text-body-light micro-body">
+        {{.BodyHTML}}
+    </div>
+</article>
+{{end}}

@@ -1,9 +1,15 @@
 {{define "title"}}{{.Data.Entry.Title}}{{end}}
 
 {{define "main"}}
-<article class="mb-8">
-  <p class="text-muted text-left whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light">{{fmtDate .Data.Entry.PublishedAt}}</p>
-  <h1 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]">{{.Data.Entry.Title}}</h1>
-  <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">{{.Data.Entry.BodyHTML}}</div>
+<article class="border border-solid border-border rounded-[2px] light:border-border-light mb-8">
+    <div class="flex justify-between py-[10px] px-[20px] border-b border-solid border-border light:border-border-light">
+        <h1 class="text-base text-link font-semibold leading-tight tracking-[.009em] m-0">{{.Data.Entry.Title}}</h1>
+        <div class="micro-date">
+            <time datetime="{{.Data.Entry.PublishedAt.Format "2006-01-02"}}">{{.Data.Entry.PublishedAt.Format "January 02, 2006"}}</time>
+        </div>
+    </div>
+    <div class="bg-secondary py-[10px] px-[20px] light:bg-secondary-light text-base leading-[1.6] text-body light:text-body-light micro-body">
+        {{.Data.Entry.BodyHTML}}
+    </div>
 </article>
 {{end}}

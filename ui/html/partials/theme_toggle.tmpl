@@ -1,5 +1,5 @@
 {{define "theme_toggle"}}
-<div class="absolute top-[42px] right-[20px] lg:right-[-40px] flex items-center gap-[6px]" role="group" aria-label="Theme selector">
+<div class="absolute top-[42px] right-[20px]  flex items-center gap-[6px]" role="group" aria-label="Theme selector">
   <form action="/theme" method="post">
     <button class="block h-[12px] w-[12px] rounded-full border border-solid border-border-subtle bg-transparent cursor-pointer p-0 hover:border-border-subtle-hover light:border-border-subtle-light {{if eq .Theme "auto"}}!bg-[#666] light:!bg-[#999]{{end}}" type="submit" name="theme" value="auto" aria-label="Auto theme"></button>
   </form>
