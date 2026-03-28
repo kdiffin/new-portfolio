@@ -1,9 +1,23 @@
-{{define "title"}}{{.Data.Entry.Title}}{{end}}
+{{define "title"}}{{.Data.Entry.Title}} - kdiffin{{end}}
 
 {{define "main"}}
-<article class="mb-8">
-  <p class="text-muted text-left whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light">{{fmtDate .Data.Entry.PublishedAt}}</p>
-  <h1 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]">{{.Data.Entry.Title}}</h1>
-  <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">{{.Data.Entry.BodyHTML}}</div>
+<article>
+    <div class="mb-[5px] flex items-baseline justify-between gap-3">
+        <time class="block text-muted tabular-nums light:text-muted-light" datetime="{{.Data.Entry.PublishedAt.Format "2006-01-02"}}">{{.Data.Entry.PublishedAt.Format "2006-01-02"}}</time>
+        {{if .Data.Book}}
+        <div class="text-muted gap-2 flex items-center light:text-muted-light text-sm font-medium ">
+            <span aria-label="Rating: {{.Data.Book.Rating}} out of 5">
+                {{if eq .Data.Book.Rating 5}}★★★★★{{else if eq .Data.Book.Rating 4}}★★★★☆{{else if eq .Data.Book.Rating 3}}★★★☆☆{{else if eq .Data.Book.Rating 2}}★★☆☆☆{{else if eq .Data.Book.Rating 1}}★☆☆☆☆{{else}}☆☆☆☆☆{{end}}
+            </span>
+            <span>by {{.Data.Book.Author}}</span>
+
+        </div>
+        {{end}}
+    </div>
+    <h1 class="text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 text-heading light:text-heading-light">{{.Data.Entry.Title}}</h1>
+
+    <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">
+        {{.Data.Entry.BodyHTML}}
+    </div>
 </article>
 {{end}}

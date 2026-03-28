@@ -6,16 +6,16 @@ import (
 )
 
 type Entry struct {
-	Section     string
 	Slug        string
 	Title       string
 	Summary     string
+	BodyHTML    template.HTML
+	Section     string
 	PublishedAt time.Time
 	Tags        []string
-	BodyHTML    template.HTML
 }
 
-type TemplateData struct {
+type PageTemplateData struct {
 	Title       string // for seo
 	Description string // for seo
 	Path        string // for the navbar highlighting
@@ -32,12 +32,10 @@ type HomePageData struct {
 }
 
 type BookReview struct {
-	Title      string
+	Entry
 	Author     string
 	FinishedAt time.Time
-	Slug       string
 	Rating     int
-	BodyHTML   template.HTML
 }
 
 type BooksPageData struct {
@@ -53,6 +51,7 @@ type ShowPageData struct {
 	Section string
 	Slug    string
 	Entry   *Entry
+	Book    *BookReview
 }
 
 type ArchivePageData struct {

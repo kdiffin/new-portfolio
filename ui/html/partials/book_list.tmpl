@@ -1,14 +1,12 @@
 {{define "book_list"}}
-<div class="m-0 p-0 list-none grid gap-y-[5px] gap-x-[5px] grid-cols-[1fr_0.75fr_min-content_70px] text-base leading-[1.6] max-[640px]:grid-cols-1 max-[640px]:gap-y-0">
+<div class="m-0 p-0 list-none grid gap-x-[5px] gap-y-[5px] grid-cols-[1fr_0.75fr_min-content_90px] text-base leading-[1.6] max-[720px]:grid-cols-1 max-[720px]:gap-y-0">
   {{range .}}
-    <div class="contents">
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap max-[640px]:whitespace-normal">
-            <a href="/books-and-papers/{{.Slug}}" class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000] font-medium tracking-tight">{{.Title}}</a>
-        </div>
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-body light:text-body-light max-[640px]:whitespace-normal">{{.Author}}</div>
-        <time class="pr-[0.25em] tabular-nums text-muted tracking-tight whitespace-nowrap light:text-muted-light max-[640px]:whitespace-normal" datetime="{{fmtDate .FinishedAt}}">{{fmtDate .FinishedAt}}</time>
-        <div class="overflow-hidden text-muted light:text-muted-light tracking-widest max-[640px]:whitespace-normal max-[640px]:pb-[20px]">{{stars .Rating}}</div>
+    <div class="overflow-hidden text-ellipsis whitespace-nowrap max-[720px]:whitespace-normal">
+        <a href="/books/{{.Slug}}" class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000] font-medium tracking-tight">{{.Title}}</a>
     </div>
+    <div class="overflow-hidden text-ellipsis whitespace-nowrap text-body light:text-body-light max-[720px]:whitespace-normal">{{.Author}}</div>
+    <time class="pr-[0.25em] tabular-nums text-muted tracking-tight whitespace-nowrap light:text-muted-light max-[720px]:whitespace-normal" datetime="{{fmtDate .FinishedAt}}">{{fmtDate .FinishedAt}}</time>
+    <div class="text-muted light:text-muted-light tracking-[2px] text-right whitespace-nowrap max-[720px]:whitespace-normal max-[720px]:pb-[20px] max-[720px]:text-left">{{stars .Rating}}</div>
   {{end}}
 </div>
 {{end}}

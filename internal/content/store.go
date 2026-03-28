@@ -75,6 +75,12 @@ func NewStore() *Store {
 			// newEntry("micro", "m-004", "Reactionary AI Centrism", "Another short-form placeholder.", now.AddDate(0, 1, -8), []string{"micro"}),
 			// newEntry("micro", "m-005", "Media diet", "Another short-form placeholder.", now.AddDate(0, 1, -15), []string{"micro"}),
 		},
+		"books": {},
+	}
+
+	for i := range books {
+		entry := books[i].Entry
+		seed["books"] = append(seed["books"], &entry)
 	}
 
 	for section := range seed {
@@ -87,7 +93,7 @@ func NewStore() *Store {
 func (s *Store) Sections() []models.SectionLink {
 	return []models.SectionLink{
 		{Label: "Writing", Href: "/writing"},
-		{Label: "Books", Href: "/books-and-papers"},
+		{Label: "Books", Href: "/books"},
 		{Label: "Projects", Href: "/projects"},
 		{Label: "Micro", Href: "/micro"},
 		{Label: "About", Href: "/about"},
@@ -107,6 +113,33 @@ func (s *Store) Find(section, slug string) (*models.Entry, error) {
 		}
 	}
 	return nil, errNotFound
+}
+
+func (s *Store) FindForShow(section, slug string) (models.ShowPageData, error) {
+	if section == "books" {
+		for i := range s.books {
+			if s.books[i].Slug == slug {
+				return models.ShowPageData{
+					Section: section,
+					Slug:    slug,
+					Entry:   &s.books[i].Entry,
+					Book:    &s.books[i],
+				}, nil
+			}
+		}
+		return models.ShowPageData{}, errNotFound
+	}
+
+	entry, err := s.Find(section, slug)
+	if err != nil {
+		return models.ShowPageData{}, err
+	}
+
+	return models.ShowPageData{
+		Section: section,
+		Slug:    slug,
+		Entry:   entry,
+	}, nil
 }
 
 func (s *Store) ListByYear(section string, year int) []*models.Entry {
@@ -174,30 +207,28 @@ func sortBooks(books []models.BookReview) {
 }
 
 func newEntry(section, slug, title, summary string, publishedAt time.Time, tags []string) *models.Entry {
-	var buf bytes.Buffer
-	mdFile, err := os.ReadFile(filepath.Join("./ui/mds/", section, slug+".md"))
+	body, err := mdFileToHtml(filepath.Join("./ui/mds/", section, slug+".md"))
 	if err != nil {
 		panic(err)
 	}
 
-	if err := goldmark.Convert(mdFile, &buf); err != nil {
-		panic(err)
-	}
-
-	print(buf.Bytes())
-
 	return &models.Entry{
-		Section:     section,
 		Slug:        slug,
 		Title:       title,
 		Summary:     summary,
+		BodyHTML:    body,
+		Section:     section,
 		PublishedAt: publishedAt,
 		Tags:        tags,
-		BodyHTML:    template.HTML(buf.String()),
 	}
 }
 
 func newBookReview(title, slug, author, finishedAt string, rating int) models.BookReview {
+	body, err := mdFileToHtml(filepath.Join("./ui/mds/", "books", slug+".md"))
+	if err != nil {
+		panic(err)
+	}
+
 	t, _ := time.Parse("2006-01-02", finishedAt)
 	if rating < 0 {
 		rating = 0
@@ -207,10 +238,31 @@ func newBookReview(title, slug, author, finishedAt string, rating int) models.Bo
 	}
 
 	return models.BookReview{
-		Title:      title,
+		Entry: models.Entry{
+			Slug:        slug,
+			Title:       title,
+			Summary:     "",
+			BodyHTML:    body,
+			Section:     "books",
+			PublishedAt: t,
+			Tags:        nil,
+		},
 		Author:     author,
-		Slug:       slug,
 		FinishedAt: t,
 		Rating:     rating,
 	}
+}
+
+func mdFileToHtml(pathToMd string) (template.HTML, error) {
+	mdFile, err := os.ReadFile(pathToMd)
+	if err != nil {
+		return "", err
+	}
+
+	var buf bytes.Buffer
+	if err := goldmark.Convert(mdFile, &buf); err != nil {
+		return "", err
+	}
+
+	return template.HTML(buf.Bytes()), nil
 }

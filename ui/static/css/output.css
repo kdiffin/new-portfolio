@@ -1132,6 +1132,11 @@ html.light.micro-body blockquote {
   margin-right: auto;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1152,6 +1157,22 @@ html.light.micro-body blockquote {
   margin-top: 1rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1164,10 +1185,6 @@ html.light.micro-body blockquote {
   display: grid;
 }
 
-.contents {
-  display: contents;
-}
-
 .h-\[12px\] {
   height: 12px;
 }
@@ -1176,33 +1193,46 @@ html.light.micro-body blockquote {
   width: 12px;
 }
 
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
+.max-w-\[720px\] {
+  max-width: 720px;
 }
 
-.max-w-\[640px\] {
-  max-width: 640px;
+.max-w-\[860px\] {
+  max-width: 860px;
 }
 
 .cursor-pointer {
   cursor: pointer;
 }
 
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .list-none {
   list-style-type: none;
+}
+
+.grid-cols-\[1fr_0\.75fr_min-content_70px\] {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
 }
 
 .grid-cols-\[1fr_min-content\] {
   grid-template-columns: 1fr min-content;
 }
 
-.grid-cols-\[minmax\(0\2c 1\.5fr\)_minmax\(0\2c 1fr\)_max-content_max-content\] {
-  grid-template-columns: minmax(0,1.5fr) minmax(0,1fr) max-content max-content;
+.grid-cols-\[1fr_0\.75fr_min-content_80px\] {
+  grid-template-columns: 1fr 0.75fr min-content 80px;
 }
 
-.grid-cols-\[1fr_0\.75fr_min-content_70px\] {
-  grid-template-columns: 1fr 0.75fr min-content 70px;
+.grid-cols-\[1fr_0\.75fr_min-content_20px\] {
+  grid-template-columns: 1fr 0.75fr min-content 20px;
+}
+
+.grid-cols-\[1fr_0\.75fr_min-content_90px\] {
+  grid-template-columns: 1fr 0.75fr min-content 90px;
 }
 
 .flex-col {
@@ -1211,6 +1241,10 @@ html.light.micro-body blockquote {
 
 .items-center {
   align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
 }
 
 .justify-between {
@@ -1229,9 +1263,8 @@ html.light.micro-body blockquote {
   gap: 6px;
 }
 
-.gap-x-4 {
-  -moz-column-gap: 1rem;
-       column-gap: 1rem;
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .gap-x-\[5px\] {
@@ -1245,12 +1278,6 @@ html.light.micro-body blockquote {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .text-ellipsis {
@@ -1343,12 +1370,12 @@ html.light.micro-body blockquote {
   padding-bottom: 42px;
 }
 
-.pt-4 {
-  padding-top: 1rem;
-}
-
 .pr-\[0\.25em\] {
   padding-right: 0.25em;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .text-left {
@@ -1367,10 +1394,6 @@ html.light.micro-body blockquote {
   font-size: 0.85rem;
 }
 
-.text-\[16px\] {
-  font-size: 16px;
-}
-
 .text-\[32px\] {
   font-size: 32px;
 }
@@ -1380,12 +1403,37 @@ html.light.micro-body blockquote {
   line-height: 1.5rem;
 }
 
-.font-semibold {
-  font-weight: 600;
+.text-\[20px\] {
+  font-size: 20px;
+}
+
+.text-\[34px\] {
+  font-size: 34px;
+}
+
+.text-\[38px\] {
+  font-size: 38px;
+}
+
+.text-\[56px\] {
+  font-size: 56px;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .tabular-nums {
@@ -1401,6 +1449,22 @@ html.light.micro-body blockquote {
   line-height: 1.25;
 }
 
+.leading-\[0\.9\] {
+  line-height: 0.9;
+}
+
+.leading-\[1\.04\] {
+  line-height: 1.04;
+}
+
+.leading-\[1\.65\] {
+  line-height: 1.65;
+}
+
+.leading-none {
+  line-height: 1;
+}
+
 .tracking-\[\.004em\] {
   letter-spacing: .004em;
 }
@@ -1409,16 +1473,24 @@ html.light.micro-body blockquote {
   letter-spacing: .009em;
 }
 
-.tracking-\[0\.03em\] {
-  letter-spacing: 0.03em;
+.tracking-\[2px\] {
+  letter-spacing: 2px;
 }
 
 .tracking-tight {
   letter-spacing: -0.025em;
 }
 
-.tracking-widest {
-  letter-spacing: 0.1em;
+.tracking-\[-0\.01em\] {
+  letter-spacing: -0.01em;
+}
+
+.tracking-\[-0\.02em\] {
+  letter-spacing: -0.02em;
+}
+
+.tracking-\[0\.08em\] {
+  letter-spacing: 0.08em;
 }
 
 .\!text-heading {
@@ -1459,6 +1531,10 @@ html.light.micro-body blockquote {
 .text-nav {
   --tw-text-opacity: 1;
   color: rgb(170 170 170 / var(--tw-text-opacity, 1));
+}
+
+.text-border\/40 {
+  color: rgb(51 51 51 / 0.4);
 }
 
 .\!no-underline {
@@ -1562,6 +1638,10 @@ html.light .light\:text-nav-light {
   color: rgb(85 85 85 / var(--tw-text-opacity, 1));
 }
 
+html.light .light\:text-border-light\/50 {
+  color: rgb(221 221 221 / 0.5);
+}
+
 html.light .light\:hover\:text-\[\#000\]:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -1637,6 +1717,10 @@ html.light.light\:text-nav-light {
   color: rgb(85 85 85 / var(--tw-text-opacity, 1));
 }
 
+html.light.light\:text-border-light\/50 {
+  color: rgb(221 221 221 / 0.5);
+}
+
 html.light.light\:hover\:text-\[\#000\]:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -1665,39 +1749,43 @@ html.light.light\:hover\:text-black:hover {
   }
 }
 
-@media (max-width: 840px) {
-  .max-\[840px\]\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .max-\[840px\]\:gap-y-3 {
-    row-gap: 0.75rem;
+@media (max-width: 980px) {
+  .max-\[980px\]\:text-\[44px\] {
+    font-size: 44px;
   }
 }
 
-@media (max-width: 640px) {
-  .max-\[640px\]\:block {
-    display: block;
-  }
-
-  .max-\[640px\]\:grid-cols-1 {
+@media (max-width: 720px) {
+  .max-\[720px\]\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
-  .max-\[640px\]\:gap-y-0 {
+  .max-\[720px\]\:gap-y-0 {
     row-gap: 0px;
   }
 
-  .max-\[640px\]\:whitespace-normal {
+  .max-\[720px\]\:whitespace-normal {
     white-space: normal;
   }
 
-  .max-\[640px\]\:pb-\[20px\] {
+  .max-\[720px\]\:pb-\[20px\] {
     padding-bottom: 20px;
   }
 
-  .max-\[640px\]\:text-left {
+  .max-\[720px\]\:text-left {
     text-align: left;
+  }
+
+  .max-\[720px\]\:text-\[18px\] {
+    font-size: 18px;
+  }
+
+  .max-\[720px\]\:text-\[26px\] {
+    font-size: 26px;
+  }
+
+  .max-\[720px\]\:text-\[32px\] {
+    font-size: 32px;
   }
 }
 

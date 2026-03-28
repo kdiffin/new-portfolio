@@ -1,10 +1,10 @@
 {{define "entry_list"}}
-<div class="m-0 p-0 list-none grid gap-y-[5px] gap-x-[5px] grid-cols-[1fr_min-content] max-[640px]:grid-cols-1">
+<div class="m-0 p-0 list-none grid gap-x-[5px] gap-y-[5px] grid-cols-[1fr_min-content] text-base leading-[1.6] max-[720px]:grid-cols-1">
     {{range .}}
-    <div class="contents">
-        <a class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000]" href="/{{.Section}}/{{.Slug}}">{{.Title}}</a>
-        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{fmtDate .PublishedAt}}">{{fmtDate .PublishedAt}}</time>
+    <div class="overflow-hidden text-ellipsis whitespace-nowrap max-[720px]:whitespace-normal">
+        <a class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000] font-medium tracking-tight" href="/{{.Section}}/{{.Slug}}">{{.Title}}</a>
     </div>
+    <time class="text-muted text-right whitespace-nowrap tabular-nums max-[720px]:text-left light:text-muted-light tracking-tight max-[720px]:pb-[20px]" datetime="{{fmtDate .PublishedAt}}">{{fmtDate .PublishedAt}}</time>
     {{end}}
 </div>
 {{end}}

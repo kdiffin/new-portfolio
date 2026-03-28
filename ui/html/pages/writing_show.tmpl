@@ -3,6 +3,7 @@
 {{define "main"}}
 <article>
     <time class="block mb-[5px] text-muted tabular-nums light:text-muted-light" datetime="{{.Data.Entry.PublishedAt.Format "2006-01-02"}}">{{.Data.Entry.PublishedAt.Format "2006-01-02"}}</time>
+    <h1 class="text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 text-heading light:text-heading-light">{{.Data.Entry.Title}}</h1>
     
     <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">
         {{.Data.Entry.BodyHTML}}

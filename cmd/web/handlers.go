@@ -13,7 +13,7 @@ import (
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	data := app.NewTemplateData(r)
+	data := app.NewPageTemplateData(r)
 	data.Title = "Home"
 	data.Description = "A minimal publishing site built with Go and Tailwind CSS."
 	data.Data = models.HomePageData{
@@ -25,7 +25,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) booksAndPapers(w http.ResponseWriter, r *http.Request) {
-	data := app.NewTemplateData(r)
+	data := app.NewPageTemplateData(r)
 	data.Title = "Books and Papers"
 	data.Description = "Books and papers reading log."
 	data.Data = models.BooksPageData{
@@ -35,7 +35,7 @@ func (app *application) booksAndPapers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) about(w http.ResponseWriter, r *http.Request) {
-	data := app.NewTemplateData(r)
+	data := app.NewPageTemplateData(r)
 	data.Title = "About"
 	data.Description = "About this site."
 	app.render(w, r, "about.tmpl", data)
@@ -44,7 +44,7 @@ func (app *application) about(w http.ResponseWriter, r *http.Request) {
 func (app *application) sectionIndex(section, page string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		caser := cases.Title(language.English)
-		data := app.NewTemplateData(r)
+		data := app.NewPageTemplateData(r)
 		data.Title = caser.String(section)
 		data.Description = fmt.Sprintf("Latest from %s.", section)
 		data.Data = models.ListPageData{
@@ -63,20 +63,16 @@ func (app *application) sectionShow(section, page string) http.HandlerFunc {
 			return
 		}
 
-		entry, err := app.store.Find(section, slug)
+		showData, err := app.store.FindForShow(section, slug)
 		if err != nil {
 			app.notFound(w)
 			return
 		}
 
-		data := app.NewTemplateData(r)
-		data.Title = entry.Title
-		data.Description = entry.Summary
-		data.Data = models.ShowPageData{
-			Section: section,
-			Slug:    slug,
-			Entry:   entry,
-		}
+		data := app.NewPageTemplateData(r)
+		data.Title = showData.Entry.Title
+		data.Description = showData.Entry.Summary
+		data.Data = showData
 
 		app.render(w, r, page, data)
 	}
@@ -85,7 +81,7 @@ func (app *application) sectionShow(section, page string) http.HandlerFunc {
 func (app *application) sectionArchive(section, page string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		caser := cases.Title(language.English)
-		data := app.NewTemplateData(r)
+		data := app.NewPageTemplateData(r)
 		data.Title = fmt.Sprintf("%s archive", caser.String(section))
 		data.Description = fmt.Sprintf("Archive for %s.", section)
 		data.Data = models.ArchivePageData{
@@ -106,7 +102,7 @@ func (app *application) sectionArchiveYear(section, page string) http.HandlerFun
 
 		caser := cases.Title(language.English)
 		entries := app.store.ListByYear(section, year)
-		data := app.NewTemplateData(r)
+		data := app.NewPageTemplateData(r)
 		data.Title = fmt.Sprintf("%s archive %d", caser.String(section), year)
 		data.Description = fmt.Sprintf("%s archive for %d.", section, year)
 		data.Data = models.ArchivePageData{
@@ -127,7 +123,7 @@ func (app *application) sectionTag(section, page string) http.HandlerFunc {
 		}
 
 		caser := cases.Title(language.English)
-		data := app.NewTemplateData(r)
+		data := app.NewPageTemplateData(r)
 		data.Title = fmt.Sprintf("%s tagged %s", caser.String(section), tag)
 		data.Description = fmt.Sprintf("Entries in %s tagged %s.", section, tag)
 		data.Data = models.ArchivePageData{

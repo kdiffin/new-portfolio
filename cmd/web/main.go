@@ -93,8 +93,8 @@ func main() {
 	}
 }
 
-func (app *application) NewTemplateData(r *http.Request) *models.TemplateData {
-	data := &models.TemplateData{
+func (app *application) NewPageTemplateData(r *http.Request) *models.PageTemplateData {
+	data := &models.PageTemplateData{
 		Path:     r.URL.Path,
 		Year:     time.Now().Year(),
 		Sections: app.store.Sections(),
@@ -109,7 +109,7 @@ func (app *application) NewTemplateData(r *http.Request) *models.TemplateData {
 	return data
 }
 
-func (app *application) render(w http.ResponseWriter, r *http.Request, page string, data *models.TemplateData) {
+func (app *application) render(w http.ResponseWriter, r *http.Request, page string, data *models.PageTemplateData) {
 	ts, ok := app.templateCache[page]
 	if !ok {
 		app.serverError(w, fmt.Errorf("template %s not found", page))
@@ -117,7 +117,7 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, page stri
 	}
 
 	if data == nil {
-		data = app.NewTemplateData(r)
+		data = app.NewPageTemplateData(r)
 	}
 
 	buf := new(bytes.Buffer)
