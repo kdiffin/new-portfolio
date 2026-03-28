@@ -1,0 +1,8 @@
+{{define "title"}}Books and Papers{{end}}
+
+{{define "main"}}
+<section class="mb-8">
+  <h1 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]">Books and Papers</h1>
+  {{template "entry_list" .Data.Entries}}
+</section>
+{{end}}

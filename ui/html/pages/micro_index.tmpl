@@ -1,0 +1,21 @@
+{{define "title"}}Micro - kdiffin{{end}}
+
+{{define "main"}}
+<h1 class="text-[32px] font-semibold leading-tight tracking-[.004em] mb-2 text-heading light:text-heading-light">Micro</h1>
+<p>Short form thoughts and updates.</p>
+
+<div class="m-0 p-0 mt list-none flex flex-col gap-[20px]">
+    {{range .Data.Entries}}
+    <article class="border border-solid border-border rounded-[2px] light:border-border-light">
+        <div class="flex justify-between py-[10px] px-[20px] border-b border-solid border-border light:border-border-light">
+            <a href="/micro/{{.Slug}}" class="micro-date">
+                <time datetime="{{.PublishedAt.Format "2006-01-02"}}">{{.PublishedAt.Format "January 02, 2006"}}</time>
+            </a>
+        </div>
+        <div class="bg-secondary p-[20px] light:bg-secondary-light mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">
+            {{.BodyHTML}}
+        </div>
+    </article>
+    {{end}}
+</div>
+{{end}}

@@ -1,0 +1,10 @@
+{{define "nav"}}
+<aside class="min-[1025px]:absolute min-[1025px]:top-[46px] min-[1025px]:right-1/2 min-[1025px]:mr-[340px] min-[1025px]:tracking-[-.009em] min-[1025px]:w-[155px] max-[1024px]:mb-[30px]">
+  <a href="/" class="block mb-[5px] font-semibold text-base text-heading light:text-heading-light">Kdiffin's</a>
+  <nav class="text-base leading-[1.6] max-[1024px]:flex max-[1024px]:flex-wrap max-[1024px]:gap-[15px]">
+    {{range .Sections}}
+      <a href="{{.Href}}" class="block text-nav light:text-nav-light hover:text-heading hover:no-underline light:hover:text-black {{if isActive $.Path .Href}}!text-heading !no-underline light:!text-black{{end}}">{{.Label}}</a>
+    {{end}}
+  </nav>
+</aside>
+{{end}}

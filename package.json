@@ -1,0 +1,13 @@
+{
+  "name": "new-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "css:build": "tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/output.css --minify",
+    "css:watch": "tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/output.css --watch"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Drawing placeholder">
+  <rect width="800" height="600" fill="#f3f1ed"/>
+  <g stroke="#8f8a80" stroke-width="3" fill="none" opacity="0.7">
+    <path d="M90 460c80-120 180-190 300-210 110-20 210 20 320 120"/>
+    <path d="M120 520c130-170 330-250 560-210"/>
+    <path d="M210 150c40 10 70 35 100 80 20 34 40 50 90 60"/>
+    <ellipse cx="360" cy="330" rx="170" ry="120"/>
+    <ellipse cx="560" cy="310" rx="110" ry="90"/>
+  </g>
+</svg>

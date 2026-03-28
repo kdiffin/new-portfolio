@@ -1,0 +1,27 @@
+{{define "title"}}Home{{end}}
+
+{{define "main"}}
+<section class="mb-8">
+  <h2 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]"><a class="text-heading light:text-heading-light no-underline hover:underline" href="/writing">Writing →</a></h2>
+  <ul class="m-0 p-0 list-none grid gap-y-[5px] gap-x-[5px] grid-cols-[1fr_min-content] max-[640px]:grid-cols-1">
+    {{range limit .Data.WritingEntries 9}}
+      <li class="contents">
+        <a href="/writing/{{.Slug}}" class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000]">{{.Title}}</a>
+        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{fmtDate .PublishedAt}}">{{fmtDate .PublishedAt}}</time>
+      </li>
+    {{end}}
+  </ul>
+</section>
+
+<section class="mb-8">
+  <h2 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]"><a class="text-heading light:text-heading-light no-underline hover:underline" href="/micro">Micro →</a></h2>
+  <ul class="m-0 p-0 list-none grid gap-y-[5px] gap-x-[5px] grid-cols-[1fr_min-content] max-[640px]:grid-cols-1">
+    {{range limit .Data.MicroEntries 5}}
+      <li class="contents">
+        <a href="/micro/{{.Slug}}" class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000]">{{.Title}}</a>
+        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{fmtDate .PublishedAt}}">{{fmtDate .PublishedAt}}</time>
+      </li>
+    {{end}}
+  </ul>
+</section>
+{{end}}

@@ -1,0 +1,8 @@
+{{define "title"}}{{title .Data.Section}} {{.Data.ArchiveYear}}{{end}}
+
+{{define "main"}}
+<section class="mb-8">
+  <h1 class="mb-2 text-base font-semibold leading-tight tracking-[.009em]">{{title .Data.Section}} · {{.Data.ArchiveYear}}</h1>
+  {{template "entry_list" .Data.Entries}}
+</section>
+{{end}}

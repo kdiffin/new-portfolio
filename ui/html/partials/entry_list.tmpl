@@ -1,0 +1,10 @@
+{{define "entry_list"}}
+<div class="m-0 p-0 list-none grid gap-y-[5px] gap-x-[5px] grid-cols-[1fr_min-content] max-[640px]:grid-cols-1">
+    {{range .}}
+    <div class="contents">
+        <a class="text-link no-underline hover:text-heading hover:underline light:text-link-light light:hover:text-[#000]" href="/{{.Section}}/{{.Slug}}">{{.Title}}</a>
+        <time class="text-muted text-right whitespace-nowrap tabular-nums max-[640px]:text-left light:text-muted-light" datetime="{{.PublishedAt.Format "2006-01-02"}}">{{.PublishedAt.Format "Jan 02, 2006"}}</time>
+    </div>
+    {{end}}
+</div>
+{{end}}
