@@ -1,22 +1,23 @@
-# name: Deploy
+name: Deploy
 
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy to VPS
-#         uses: appleboy/ssh-action@v1.0.3
-#         with:
-#           host: 134.122.82.20
-#           username: kdiffin
-#           key: ${{ secrets.DO_SSH_KEY }}
-#           script: |
-#             cd ~/portfolio
-#             git pull
-#             npm run css:build
-#             go build -o portfolio ./cmd/web
-#             sudo systemctl restart portfolio
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 134.122.82.20
+          username: kdiffin
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |
+            cd ~/portfolio
+            git pull
+            npm run css:build
+            sqlc generate
+            go build -o portfolio ./cmd/web
+            sudo systemctl restart portfolio
