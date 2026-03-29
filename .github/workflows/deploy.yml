@@ -14,6 +14,8 @@ jobs:
           host: 134.122.82.20
           username: kdiffin
           key: ${{ secrets.DO_SSH_KEY }}
+          passphrase: ${{ secrets.DO_SSH_KEY_PASSPHRASE }}
+
           script: |
             cd ~/portfolio
             git pull
