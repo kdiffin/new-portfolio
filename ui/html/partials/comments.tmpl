@@ -1,0 +1,69 @@
+{{define "comments"}}
+<section id="comments" class="mt-12 pt-8">
+
+    <form class="mb-10 text-base" action="/{{.Data.Section}}/{{.Data.Slug}}/comments" method="post">
+        <div class="mb-4">
+            <label class="mb-1.5 block text-sm font-medium text-muted light:text-muted-light" for="comment-content">Comment</label>
+            <textarea class="min-h-[100px] w-full rounded-[3px] border border-solid border-border bg-transparent px-3 py-2 text-sm leading-relaxed text-body shadow-sm outline-none transition focus:border-muted light:border-border-light light:text-body-light light:focus:border-muted-light resize-y" id="comment-content" name="content" maxlength="3000" required></textarea>
+        </div>
+
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
+            <button class="rounded-[3px] bg-secondary px-4 py-2 text-sm font-medium text-heading transition hover:bg-border light:bg-secondary-light light:text-heading-light light:hover:bg-border-light border border-solid border-border light:border-border-light shadow-sm whitespace-nowrap" type="submit">Post comment</button>
+            
+            <div class="sm:w-[260px]">
+                <input placeholder="Name (optional)" class="w-full rounded-[3px] border border-solid border-border bg-transparent px-3 py-2 text-sm text-body shadow-sm outline-none transition focus:border-muted light:border-border-light light:text-body-light light:focus:border-muted-light" id="comment-name" name="name" maxlength="80">
+            </div>
+        </div>
+    </form>
+
+    {{if .Data.Entry.Comments}}
+    <div class="space-y-6">
+        {{range .Data.Entry.Comments}}
+        <div id="comment-{{.ID}}" class="relative {{if eq .Depth 1}}ml-8{{else if eq .Depth 2}}ml-16{{else if eq .Depth 3}}ml-24{{else if eq .Depth 4}}ml-32{{else if gt .Depth 4}}ml-40{{end}}">
+            {{if gt .Depth 0}}
+            <div class="absolute -left-4 top-0 bottom-0 w-px bg-border/40 light:bg-border-light/50"></div>
+            {{end}}
+            
+            <div class="mb-1 flex items-baseline gap-3">
+                <span class="font-medium text-heading light:text-heading-light">{{.Name}}</span>
+                <time class="text-xs text-nav light:text-nav-light">{{if .CreatedAt.Valid}}{{.CreatedAt.Time.Format "Jan 2, 2006 at 3:04 PM"}}{{else}}Unknown{{end}}</time>
+            </div>
+            {{if .ParentID.Valid}}
+            <div class="mb-1 text-xs text-muted light:text-muted-light">
+                Replying to <a class="underline decoration-border/70 underline-offset-2 hover:text-heading light:decoration-border-light/70 light:hover:text-heading-light" href="#comment-{{.ParentID.Int64}}">comment #{{.ParentID.Int64}}</a>
+            </div>
+            {{end}}
+            
+            <div class="text-base text-body leading-[1.6] light:text-body-light break-words">
+                {{.Content}}
+            </div>
+            
+            <details class="group mt-2">
+                <summary class="inline-block cursor-pointer text-xs font-medium text-muted hover:text-heading light:text-muted-light light:hover:text-heading-light transition-colors list-none select-none">
+                    Reply
+                </summary>
+                <div class="mt-4 pb-2">
+                    <form action="/{{$.Data.Section}}/{{$.Data.Slug}}/comments" method="post" class="rounded-[3px] border border-solid border-border p-4 bg-secondary/30 light:border-border-light light:bg-secondary-light/30">
+                        <input type="hidden" name="parent_id" value="{{.ID}}">
+                        
+                        <div class="mb-3">
+                            <textarea class="min-h-[80px] w-full rounded-[3px] border border-solid border-border bg-primary px-3 py-2 text-sm leading-relaxed text-body shadow-sm outline-none transition focus:border-muted light:border-border-light light:bg-primary-light light:text-body-light light:focus:border-muted-light resize-y" id="reply-content-{{.ID}}" name="content" placeholder="Write your reply..." maxlength="3000" required></textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
+                            <button class="rounded-[3px] bg-primary px-3 py-1.5 text-sm font-medium text-heading transition hover:bg-border light:bg-primary-light light:text-heading-light light:hover:bg-border-light border border-solid border-border light:border-border-light shadow-sm whitespace-nowrap" type="submit">Post reply</button>
+                            <div class="sm:w-[220px]">
+                                <input placeholder="Name" class="w-full rounded-[3px] border border-solid border-border bg-primary px-3 py-1.5 text-sm text-body shadow-sm outline-none transition focus:border-muted light:border-border-light light:bg-primary-light light:text-body-light light:focus:border-muted-light" id="reply-name-{{.ID}}" name="name" maxlength="80">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </details>
+        </div>
+        {{end}}
+    </div>
+    {{else}}
+    <p class="text-body italic light:text-body-light">No comments yet. Be the first.</p>
+    {{end}}
+</section>
+{{end}}

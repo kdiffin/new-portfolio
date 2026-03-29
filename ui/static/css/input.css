@@ -4,6 +4,7 @@
 
 @layer base {
   a {
+    @apply text-blue-500 no-underline hover:underline light:text-blue-400;
     text-decoration-skip-ink: auto;
   }
 
@@ -86,7 +87,7 @@
   }
 
   .micro-body a {
-    @apply text-body no-underline hover:underline light:text-body-light;
+    @apply text-blue-500 no-underline hover:underline light:text-blue-400;
   }
 
   .micro-body h1 {

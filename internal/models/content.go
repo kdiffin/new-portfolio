@@ -2,9 +2,11 @@ package models
 
 import (
 	"html/template"
+	db "new-portfolio/internal/db/sqlc"
 	"time"
 )
 
+// Non-page models
 type Entry struct {
 	Slug        string
 	Title       string
@@ -13,22 +15,7 @@ type Entry struct {
 	Section     string
 	PublishedAt time.Time
 	Tags        []string
-}
-
-type PageTemplateData struct {
-	Title       string // for seo
-	Description string // for seo
-	Path        string // for the navbar highlighting
-	Theme       string
-	Year        int           // for the footer
-	Sections    []SectionLink // for the navbar
-	Data        any
-}
-
-type HomePageData struct {
-	WritingEntries []*Entry
-	MicroEntries   []*Entry
-	Books          []BookReview
+	Comments    []db.GetCommentsBySlugRow
 }
 
 type BookReview struct {
@@ -36,6 +23,29 @@ type BookReview struct {
 	Author     string
 	FinishedAt time.Time
 	Rating     int
+}
+
+type SectionLink struct {
+	Label string
+	Href  string
+}
+
+// Page models
+type PageTemplateData struct {
+	Title       string // for seo
+	Description string // for seo
+	Path        string // for the navbar highlighting
+	Theme       string
+	Year        int           // for the footer
+	Sections    []SectionLink // for the navbar
+	// Data is for passing any page-specific data to the template
+	Data any
+}
+
+type HomePageData struct {
+	WritingEntries []*Entry
+	MicroEntries   []*Entry
+	Books          []BookReview
 }
 
 type BooksPageData struct {
@@ -51,7 +61,8 @@ type ShowPageData struct {
 	Section string
 	Slug    string
 	Entry   *Entry
-	Book    *BookReview
+	// this is for books rn only but its basically additional data besides show page specific stuff
+	Data any
 }
 
 type ArchivePageData struct {
@@ -59,9 +70,4 @@ type ArchivePageData struct {
 	Tag         string
 	ArchiveYear int
 	Entries     []*Entry
-}
-
-type SectionLink struct {
-	Label string
-	Href  string
 }

@@ -11,5 +11,9 @@
     <div class="bg-secondary py-[10px] px-[20px] light:bg-secondary-light text-base leading-[1.6] text-body light:text-body-light micro-body">
         {{.Data.Entry.BodyHTML}}
     </div>
+
+    <div class="px-[20px] pb-[20px]">
+        {{template "comments" .}}
+    </div>
 </article>
 {{end}}

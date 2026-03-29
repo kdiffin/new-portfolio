@@ -10,6 +10,7 @@ Macwright-style, full-section publishing site scaffold using:
 
 [ai generated code walkthrough](./CODE_WALKTHROUGH.md) \
 [how templating works (inspired by lets go by A. Edwards)](./how-templating-works.md)
+[comments workflow docs](./COMMENTS_WORKFLOW.md)
 ## Run
 
 1. Install dependencies:

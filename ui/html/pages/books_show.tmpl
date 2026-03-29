@@ -4,12 +4,12 @@
 <article>
     <div class="mb-[5px] flex items-baseline justify-between gap-3">
         <time class="block text-muted tabular-nums light:text-muted-light" datetime="{{.Data.Entry.PublishedAt.Format "2006-01-02"}}">{{.Data.Entry.PublishedAt.Format "2006-01-02"}}</time>
-        {{if .Data.Book}}
+        {{if .Data.Data}}
         <div class="text-muted gap-2 flex items-center light:text-muted-light text-sm font-medium ">
-            <span aria-label="Rating: {{.Data.Book.Rating}} out of 5">
-                {{if eq .Data.Book.Rating 5}}★★★★★{{else if eq .Data.Book.Rating 4}}★★★★☆{{else if eq .Data.Book.Rating 3}}★★★☆☆{{else if eq .Data.Book.Rating 2}}★★☆☆☆{{else if eq .Data.Book.Rating 1}}★☆☆☆☆{{else}}☆☆☆☆☆{{end}}
+            <span aria-label="Rating: {{.Data.Data.Rating}} out of 5">
+                {{if eq .Data.Data.Rating 5}}★★★★★{{else if eq .Data.Data.Rating 4}}★★★★☆{{else if eq .Data.Data.Rating 3}}★★★☆☆{{else if eq .Data.Data.Rating 2}}★★☆☆☆{{else if eq .Data.Data.Rating 1}}★☆☆☆☆{{else}}☆☆☆☆☆{{end}}
             </span>
-            <span>by {{.Data.Book.Author}}</span>
+            <span>by {{.Data.Data.Author}}</span>
 
         </div>
         {{end}}
@@ -19,5 +19,7 @@
     <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">
         {{.Data.Entry.BodyHTML}}
     </div>
+
+    {{template "comments" .}}
 </article>
 {{end}}

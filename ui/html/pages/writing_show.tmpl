@@ -8,5 +8,7 @@
     <div class="mt-4 text-base leading-[1.6] text-body light:text-body-light content-body">
         {{.Data.Entry.BodyHTML}}
     </div>
+
+    {{template "comments" .}}
 </article>
 {{end}}

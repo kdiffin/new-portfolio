@@ -2,9 +2,11 @@ package main
 
 import (
 	"bytes"
+	"database/sql"
 	"errors"
 	"fmt"
 	"html/template"
+	"log"
 	"log/slog"
 	"net/http"
 	"os"
@@ -12,6 +14,10 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	db "new-portfolio/internal/db/sqlc"
+
+	_ "modernc.org/sqlite"
 
 	"new-portfolio/internal/content"
 	"new-portfolio/internal/models"
@@ -25,6 +31,30 @@ type application struct {
 }
 
 func main() {
+	// ctx := context.Background()
+
+	// db part
+	database, err := sql.Open("sqlite", "./myapp.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	database.SetMaxOpenConns(1) // SQLite does not support multiple concurrent writers
+	defer database.Close()
+
+	// run migrations
+	// if _, err := database.ExecContext(ctx, dbschema.SchemaSQL); err != nil {
+	// 	log.Fatal(err)
+
+	// }
+
+	queries := db.New(database)
+
+	// Verify connection
+	if err := database.Ping(); err != nil {
+		log.Fatal(err)
+	}
+	//  --- db done ---
+
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 
 	templateFuncs := template.FuncMap{
@@ -72,7 +102,7 @@ func main() {
 
 	app := &application{
 		logger:        logger,
-		store:         content.NewStore(),
+		store:         content.NewStore(queries),
 		templateCache: templateCache,
 	}
 

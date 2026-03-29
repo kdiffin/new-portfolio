@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -11,35 +12,6 @@ import (
 
 	"new-portfolio/internal/models"
 )
-
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	data := app.NewPageTemplateData(r)
-	data.Title = "Home"
-	data.Description = "A minimal publishing site built with Go and Tailwind CSS."
-	data.Data = models.HomePageData{
-		WritingEntries: app.store.List("writing"),
-		MicroEntries:   app.store.List("micro"),
-		Books:          app.store.LatestBooks(8),
-	}
-	app.render(w, r, "home.tmpl", data)
-}
-
-func (app *application) booksAndPapers(w http.ResponseWriter, r *http.Request) {
-	data := app.NewPageTemplateData(r)
-	data.Title = "Books and Papers"
-	data.Description = "Books and papers reading log."
-	data.Data = models.BooksPageData{
-		Books: app.store.Books(),
-	}
-	app.render(w, r, "books_index.tmpl", data)
-}
-
-func (app *application) about(w http.ResponseWriter, r *http.Request) {
-	data := app.NewPageTemplateData(r)
-	data.Title = "About"
-	data.Description = "About this site."
-	app.render(w, r, "about.tmpl", data)
-}
 
 func (app *application) sectionIndex(section, page string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -75,6 +47,42 @@ func (app *application) sectionShow(section, page string) http.HandlerFunc {
 		data.Data = showData
 
 		app.render(w, r, page, data)
+	}
+}
+
+func (app *application) sectionAddComment(section string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		slug := strings.TrimSpace(r.PathValue("slug"))
+		if slug == "" {
+			app.notFound(w)
+			return
+		}
+
+		if err := r.ParseForm(); err != nil {
+			app.clientError(w, http.StatusBadRequest)
+			return
+		}
+
+		name := r.PostForm.Get("name")
+		content := r.PostForm.Get("content")
+
+		var parentID *int64
+		parentIDRaw := strings.TrimSpace(r.PostForm.Get("parent_id"))
+		if parentIDRaw != "" {
+			parsed, err := strconv.ParseInt(parentIDRaw, 10, 64)
+			if err != nil || parsed <= 0 {
+				app.clientError(w, http.StatusBadRequest)
+				return
+			}
+			parentID = &parsed
+		}
+
+		if err := app.store.AddComment(section, slug, name, content, parentID); err != nil {
+			app.clientError(w, http.StatusBadRequest)
+			return
+		}
+
+		http.Redirect(w, r, fmt.Sprintf("/%s/%s#comments", section, slug), http.StatusSeeOther)
 	}
 }
 

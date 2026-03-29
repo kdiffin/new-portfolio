@@ -1,29 +1,27 @@
 package content
 
 import (
-	"bytes"
+	"context"
+	"database/sql"
 	"errors"
-	"html/template"
-	"os"
-	"path/filepath"
-	"slices"
-	"sort"
+	"fmt"
 	"strings"
 	"time"
 
+	db "new-portfolio/internal/db/sqlc"
 	"new-portfolio/internal/models"
-
-	"github.com/yuin/goldmark"
 )
 
 var errNotFound = errors.New("entry not found")
 
 type Store struct {
 	bySection map[string][]*models.Entry
-	books     []models.BookReview
+	queries   *db.Queries // or whatever your queries type is
+
+	books []models.BookReview
 }
 
-func NewStore() *Store {
+func NewStore(queries *db.Queries) *Store {
 	books := []models.BookReview{
 		newBookReview("A Philosophy of Software Design", "a-philosophy-of-software-design", "John Ousterhout", "2026-03-01", 5),
 		newBookReview("Apple in China", "a-philosophy-of-software-design", "Patrick McGee", "2026-02-11", 5),
@@ -60,13 +58,13 @@ func NewStore() *Store {
 			// newEntry("writing", "color-dithering", "Color dithering", "A practical write-up.", now.AddDate(0, 0, -29), []string{"design"}),
 			// newEntry("writing", "sketches", "Sketches", "A collection of experiments.", now.AddDate(0, 1, -22), []string{"drawing"}),
 			// newEntry("writing", "theme-selector", "Theme selector", "How to implement theme preferences.", now.AddDate(0, 3, -14), []string{"site"}),
-			// newEntry("writing", "specifiers-history", "A brief history of specifiers and protocols", "Protocol and URL conventions.", now.AddDate(0, 3, -15), []string{"tech"}),
-			// newEntry("writing", "year-review", "2025 Year in Review", "Annual review and notes.", now.AddDate(0, 3, -16), []string{"review"}),
-			// newEntry("writing", "dec-recently", "Recently", "Another rolling post.", now.AddDate(0, 3, -22), []string{"notes"}),
+			// newEntryWithQueries("writing", "specifiers-history", "A brief history of specifiers and protocols", "Protocol and URL conventions.", now.AddDate(0, 3, -15), []string{"tech"}),
+			// newEntryWithQueries("writing", "year-review", "2025 Year in Review", "Annual review and notes.", now.AddDate(0, 3, -16), []string{"review"}),
+			// newEntryWithQueries("writing", "dec-recently", "Recently", "Another rolling post.", now.AddDate(0, 3, -22), []string{"notes"}),
 		},
 
 		"projects": {
-			// newEntry("projects", "portfolio-v1", "Portfolio v1", "Project entry placeholder.", now.AddDate(0, -1, 0), []string{"project", "web"}),
+			// newEntryWithQueries("projects", "portfolio-v1", "Portfolio v1", "Project entry placeholder.", now.AddDate(0, -1, 0), []string{"project", "web"}),
 		},
 		"micro": {
 			newEntry("micro", "m-001", "Effect notes: PRs, progress, and joys", "Short-form placeholder entry.", time.Now().AddDate(0, 0, -4), []string{"micro"}),
@@ -78,6 +76,8 @@ func NewStore() *Store {
 		"books": {},
 	}
 
+	//  pass queries to newEntry
+
 	for i := range books {
 		entry := books[i].Entry
 		seed["books"] = append(seed["books"], &entry)
@@ -87,7 +87,79 @@ func NewStore() *Store {
 		sortEntries(seed[section])
 	}
 
-	return &Store{bySection: seed, books: books}
+	return &Store{bySection: seed, books: books, queries: queries}
+}
+func (s *Store) GetEntry(section, slug string) *models.Entry {
+	entry, err := s.Find(section, slug)
+	if err != nil {
+		return nil
+	}
+
+	entry.Comments = s.commentsForEntry(section, slug)
+	return entry
+}
+
+func (s *Store) commentsForEntry(section, slug string) []db.GetCommentsBySlugRow {
+	if s.queries == nil {
+		return nil
+	}
+
+	ctx := context.Background()
+	pathSlug := fmt.Sprintf("/%s/%s", section, slug)
+
+	rows, err := s.queries.GetCommentsBySlug(ctx, pathSlug)
+	if err == nil && len(rows) > 0 {
+		return rows
+	}
+
+	fallbackRows, fallbackErr := s.queries.GetCommentsBySlug(ctx, slug)
+	if fallbackErr == nil {
+		return fallbackRows
+	}
+
+	return nil
+}
+
+func (s *Store) AddComment(section, slug, name, content string, parentID *int64) error {
+	if s.queries == nil {
+		return errors.New("comments datastore unavailable")
+	}
+
+	name = strings.TrimSpace(name)
+	if name == "" {
+		name = "Anonymous"
+	}
+	content = strings.TrimSpace(content)
+	if content == "" {
+		return errors.New("comment content is required")
+	}
+
+	targetSlug := fmt.Sprintf("/%s/%s", section, slug)
+	params := db.CreateCommentParams{
+		Name:    name,
+		Content: content,
+		Slug:    targetSlug,
+	}
+	if parentID != nil {
+		params.ParentID = sql.NullInt64{Int64: *parentID, Valid: true}
+	}
+
+	return s.queries.CreateComment(context.Background(), params)
+}
+
+func (s *Store) CommentExists(section, slug string, id int64) bool {
+	if s.queries == nil {
+		return false
+	}
+
+	comments := s.commentsForEntry(section, slug)
+	for _, c := range comments {
+		if c.ID == id {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (s *Store) Sections() []models.SectionLink {
@@ -98,171 +170,4 @@ func (s *Store) Sections() []models.SectionLink {
 		{Label: "Micro", Href: "/micro"},
 		{Label: "About", Href: "/about"},
 	}
-}
-
-func (s *Store) List(section string) []*models.Entry {
-	entries := slices.Clone(s.bySection[section])
-	sortEntries(entries)
-	return entries
-}
-
-func (s *Store) Find(section, slug string) (*models.Entry, error) {
-	for _, entry := range s.bySection[section] {
-		if entry.Slug == slug {
-			return entry, nil
-		}
-	}
-	return nil, errNotFound
-}
-
-func (s *Store) FindForShow(section, slug string) (models.ShowPageData, error) {
-	if section == "books" {
-		for i := range s.books {
-			if s.books[i].Slug == slug {
-				return models.ShowPageData{
-					Section: section,
-					Slug:    slug,
-					Entry:   &s.books[i].Entry,
-					Book:    &s.books[i],
-				}, nil
-			}
-		}
-		return models.ShowPageData{}, errNotFound
-	}
-
-	entry, err := s.Find(section, slug)
-	if err != nil {
-		return models.ShowPageData{}, err
-	}
-
-	return models.ShowPageData{
-		Section: section,
-		Slug:    slug,
-		Entry:   entry,
-	}, nil
-}
-
-func (s *Store) ListByYear(section string, year int) []*models.Entry {
-	var out []*models.Entry
-	for _, entry := range s.bySection[section] {
-		if entry.PublishedAt.Year() == year {
-			out = append(out, entry)
-		}
-	}
-	sortEntries(out)
-	return out
-}
-
-func (s *Store) ListByTag(section, tag string) []*models.Entry {
-	var out []*models.Entry
-	needle := strings.ToLower(tag)
-	for _, entry := range s.bySection[section] {
-		for _, t := range entry.Tags {
-			if strings.EqualFold(t, needle) {
-				out = append(out, entry)
-				break
-			}
-		}
-	}
-	sortEntries(out)
-	return out
-}
-
-func (s *Store) Latest(limit int) []*models.Entry {
-	var all []*models.Entry
-	for _, entries := range s.bySection {
-		all = append(all, entries...)
-	}
-	sortEntries(all)
-	if limit > 0 && len(all) > limit {
-		all = all[:limit]
-	}
-	return slices.Clone(all)
-}
-
-func (s *Store) Books() []models.BookReview {
-	out := slices.Clone(s.books)
-	sortBooks(out)
-	return out
-}
-
-func (s *Store) LatestBooks(limit int) []models.BookReview {
-	out := s.Books()
-	if limit > 0 && len(out) > limit {
-		out = out[:limit]
-	}
-	return out
-}
-
-func sortEntries(entries []*models.Entry) {
-	sort.Slice(entries, func(i, j int) bool {
-		return entries[i].PublishedAt.After(entries[j].PublishedAt)
-	})
-}
-
-func sortBooks(books []models.BookReview) {
-	sort.Slice(books, func(i, j int) bool {
-		return books[i].FinishedAt.After(books[j].FinishedAt)
-	})
-}
-
-func newEntry(section, slug, title, summary string, publishedAt time.Time, tags []string) *models.Entry {
-	body, err := mdFileToHtml(filepath.Join("./ui/mds/", section, slug+".md"))
-	if err != nil {
-		panic(err)
-	}
-
-	return &models.Entry{
-		Slug:        slug,
-		Title:       title,
-		Summary:     summary,
-		BodyHTML:    body,
-		Section:     section,
-		PublishedAt: publishedAt,
-		Tags:        tags,
-	}
-}
-
-func newBookReview(title, slug, author, finishedAt string, rating int) models.BookReview {
-	body, err := mdFileToHtml(filepath.Join("./ui/mds/", "books", slug+".md"))
-	if err != nil {
-		panic(err)
-	}
-
-	t, _ := time.Parse("2006-01-02", finishedAt)
-	if rating < 0 {
-		rating = 0
-	}
-	if rating > 5 {
-		rating = 5
-	}
-
-	return models.BookReview{
-		Entry: models.Entry{
-			Slug:        slug,
-			Title:       title,
-			Summary:     "",
-			BodyHTML:    body,
-			Section:     "books",
-			PublishedAt: t,
-			Tags:        nil,
-		},
-		Author:     author,
-		FinishedAt: t,
-		Rating:     rating,
-	}
-}
-
-func mdFileToHtml(pathToMd string) (template.HTML, error) {
-	mdFile, err := os.ReadFile(pathToMd)
-	if err != nil {
-		return "", err
-	}
-
-	var buf bytes.Buffer
-	if err := goldmark.Convert(mdFile, &buf); err != nil {
-		return "", err
-	}
-
-	return template.HTML(buf.Bytes()), nil
 }
