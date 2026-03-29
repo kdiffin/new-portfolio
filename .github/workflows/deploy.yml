@@ -17,7 +17,6 @@ jobs:
           passphrase: ${{ secrets.DO_SSH_KEY_PASSPHRASE }}
 
           script: |
-            export PATH=$PATH:/home/kdiffin/go/bin
             cd ~/portfolio
             git pull
             npm run css:build
