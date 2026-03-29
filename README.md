@@ -17,12 +17,13 @@ Macwright-style, full-section publishing site scaffold using:
    - `touch myapp.db`
 1. Install dependencies:
    - `npm install`
-
 2. Build CSS:
    - `npm run css:build`
-3. Start server:
+3. Run make sure db code is up to date:
+   - `sqlc generate`:
+4. Start server:
    - `go run ./cmd/web`
-4. Open:
+5. Open:
    - `http://localhost:4000`
 
 ## Template architecture (Let’s Go style)

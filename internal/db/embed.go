@@ -1,4 +1,4 @@
-package db
+package dbschema
 
 import _ "embed"
 

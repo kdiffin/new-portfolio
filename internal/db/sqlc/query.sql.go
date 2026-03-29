@@ -91,7 +91,6 @@ func (q *Queries) GetCommentsBySlug(ctx context.Context, slug string) ([]GetComm
 	}
 	defer rows.Close()
 	var items []GetCommentsBySlugRow
-
 	for rows.Next() {
 		var i GetCommentsBySlugRow
 		if err := rows.Scan(

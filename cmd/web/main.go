@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -15,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	dbschema "new-portfolio/internal/db"
 	db "new-portfolio/internal/db/sqlc"
 
 	_ "modernc.org/sqlite"
@@ -31,7 +33,7 @@ type application struct {
 }
 
 func main() {
-	// ctx := context.Background()
+	ctx := context.Background()
 
 	// db part
 	database, err := sql.Open("sqlite", "./myapp.db")
@@ -42,10 +44,10 @@ func main() {
 	defer database.Close()
 
 	// run migrations
-	// if _, err := database.ExecContext(ctx, dbschema.SchemaSQL); err != nil {
-	// 	log.Fatal(err)
+	if _, err := database.ExecContext(ctx, dbschema.SchemaSQL); err != nil {
+		log.Fatal(err)
 
-	// }
+	}
 
 	queries := db.New(database)
 
