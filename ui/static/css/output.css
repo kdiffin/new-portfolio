@@ -1135,8 +1135,8 @@ html.light.micro-body blockquote {
   position: relative;
 }
 
-.-left-6 {
-  left: -1.5rem;
+.-left-4 {
+  left: -1rem;
 }
 
 .bottom-0 {
@@ -1153,10 +1153,6 @@ html.light.micro-body blockquote {
 
 .top-\[42px\] {
   top: 42px;
-}
-
-.-left-4 {
-  left: -1rem;
 }
 
 .m-0 {
@@ -1200,22 +1196,6 @@ html.light.micro-body blockquote {
   margin-bottom: 5px;
 }
 
-.mt-12 {
-  margin-top: 3rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
 .ml-16 {
   margin-left: 4rem;
 }
@@ -1234,6 +1214,22 @@ html.light.micro-body blockquote {
 
 .ml-8 {
   margin-left: 2rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
 }
 
 .block {
@@ -1280,8 +1276,30 @@ html.light.micro-body blockquote {
   width: 1px;
 }
 
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-max {
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .max-w-\[720px\] {
   max-width: 720px;
+}
+
+.max-w-\[40\%\] {
+  max-width: 40%;
+}
+
+.max-w-\[400px\] {
+  max-width: 400px;
+}
+
+.max-w-\[500px\] {
+  max-width: 500px;
 }
 
 .cursor-pointer {
@@ -1340,6 +1358,14 @@ html.light.micro-body blockquote {
 
 .gap-\[6px\] {
   gap: 6px;
+}
+
+.gap-10 {
+  gap: 2.5rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
 }
 
 .gap-x-\[5px\] {
@@ -1509,6 +1535,14 @@ html.light.micro-body blockquote {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-6 {
+  padding-right: 1.5rem;
 }
 
 .text-left {
@@ -1971,20 +2005,12 @@ html.light.light\:focus\:border-muted-light:focus {
     flex-direction: row;
   }
 
-  .sm\:items-end {
-    align-items: flex-end;
-  }
-
   .sm\:items-center {
     align-items: center;
   }
 
   .sm\:justify-start {
     justify-content: flex-start;
-  }
-
-  .sm\:justify-between {
-    justify-content: space-between;
   }
 }
 

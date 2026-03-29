@@ -1,19 +1,22 @@
 {{define "title"}}{{.Data.Entry.Title}}{{end}}
 
 {{define "main"}}
-<article class="border border-solid border-border rounded-[2px] light:border-border-light mb-8">
-    <div class="flex justify-between py-[10px] px-[20px] border-b border-solid border-border light:border-border-light">
-        <h1 class="text-base text-link font-semibold leading-tight tracking-[.009em] m-0">{{.Data.Entry.Title}}</h1>
-        <div class="micro-date">
+<article class="border border-solid border-border rounded-[2px] light:border-border-light ">
+    <div class="flex justify-between py-[10px] items-center px-[20px] border-b border-solid border-border light:border-border-light">
+        <h1 class="text-base text-link font-semibold pr-4 max-w-[500px] leading-tight tracking-[.009em] m-0">{{.Data.Entry.Title}}</h1>
+        <div class="micro-date w-max-content">
             <time datetime="{{.Data.Entry.PublishedAt.Format "2006-01-02"}}">{{.Data.Entry.PublishedAt.Format "January 02, 2006"}}</time>
         </div>
+        
     </div>
     <div class="bg-secondary py-[10px] px-[20px] light:bg-secondary-light text-base leading-[1.6] text-body light:text-body-light micro-body">
         {{.Data.Entry.BodyHTML}}
     </div>
 
-    <div class="px-[20px] pb-[20px]">
-        {{template "comments" .}}
-    </div>
 </article>
+
+
+<div class=" pb-[20px]">
+    {{template "comments" .}}
+</div>
 {{end}}

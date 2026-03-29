@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"strconv"
 	"strings"
@@ -59,6 +60,7 @@ func (app *application) sectionAddComment(section string) http.HandlerFunc {
 		}
 
 		if err := r.ParseForm(); err != nil {
+			app.logger.Error("error parsing comment form at /%s/%s", slog.Any("error", err), section, slug)
 			app.clientError(w, http.StatusBadRequest)
 			return
 		}
@@ -71,6 +73,7 @@ func (app *application) sectionAddComment(section string) http.HandlerFunc {
 		if parentIDRaw != "" {
 			parsed, err := strconv.ParseInt(parentIDRaw, 10, 64)
 			if err != nil || parsed <= 0 {
+				app.logger.Error("error parsing comment form at /%s/%s", slog.Any("error", err), section, slug)
 				app.clientError(w, http.StatusBadRequest)
 				return
 			}
@@ -78,6 +81,7 @@ func (app *application) sectionAddComment(section string) http.HandlerFunc {
 		}
 
 		if err := app.store.AddComment(section, slug, name, content, parentID); err != nil {
+			app.logger.Error("error adding comment at /%s/%s", slog.Any("error", err), section, slug)
 			app.clientError(w, http.StatusBadRequest)
 			return
 		}

@@ -8,7 +8,7 @@ func (app *application) routes() http.Handler {
 	fileServer := http.FileServer(http.Dir("./ui/static"))
 	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
 
-	mux.HandleFunc("GET /", app.home)
+	mux.HandleFunc("GET /{$}", app.home)
 	mux.HandleFunc("GET /about", app.about)
 
 	mux.HandleFunc("GET /writing", app.sectionIndex("writing", "writing_index.tmpl"))

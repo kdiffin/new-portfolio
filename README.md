@@ -13,8 +13,11 @@ Macwright-style, full-section publishing site scaffold using:
 [comments workflow docs](./COMMENTS_WORKFLOW.md)
 ## Run
 
+0. Create Sqlite file:
+   - `touch myapp.db`
 1. Install dependencies:
    - `npm install`
+
 2. Build CSS:
    - `npm run css:build`
 3. Start server:

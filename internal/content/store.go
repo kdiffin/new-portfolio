@@ -24,29 +24,29 @@ type Store struct {
 func NewStore(queries *db.Queries) *Store {
 	books := []models.BookReview{
 		newBookReview("A Philosophy of Software Design", "a-philosophy-of-software-design", "John Ousterhout", "2026-03-01", 5),
-		newBookReview("Apple in China", "a-philosophy-of-software-design", "Patrick McGee", "2026-02-11", 5),
-		newBookReview("Six Centuries of Type and Printing", "a-philosophy-of-software-design", "Glenn Fleishman", "2026-02-01", 4),
-		newBookReview("Pageboy", "a-philosophy-of-software-design", "Elliot Page", "2026-01-14", 4),
-		newBookReview("Every Day Is For The Thief", "a-philosophy-of-software-design", "Teju Cole", "2026-01-10", 5),
-		newBookReview("There Is No Antimemetics Division", "a-philosophy-of-software-design", "qntm", "2025-12-14", 2),
-		newBookReview("The Fort Bragg Cartel", "a-philosophy-of-software-design", "Seth Harp", "2025-12-02", 5),
-		newBookReview("Jesus and John Wayne", "a-philosophy-of-software-design", "Kristin Kobes Du Mez", "2025-11-27", 4),
-		newBookReview("Ways and Means", "a-philosophy-of-software-design", "Daniel Lefferts", "2025-11-15", 4),
-		newBookReview("Bad Monkey", "a-philosophy-of-software-design", "Carl Hiaasen", "2025-11-06", 3),
-		newBookReview("Timequake", "a-philosophy-of-software-design", "Kurt Vonnegut", "2025-10-15", 4),
-		newBookReview("Jewish Space Lasers", "a-philosophy-of-software-design", "Mike Rothschild", "2025-10-07", 3),
-		newBookReview("Uncommon Carriers", "a-philosophy-of-software-design", "John McPhee", "2025-09-05", 4),
-		newBookReview("Dawn", "a-philosophy-of-software-design", "Octavia E. Butler", "2025-08-23", 5),
-		newBookReview("Radio Free Albemuth", "a-philosophy-of-software-design", "Philip K Dick", "2025-07-27", 3),
-		newBookReview("Unruly", "a-philosophy-of-software-design", "David Mitchell", "2025-07-21", 3),
-		newBookReview("Things Become Other Things", "a-philosophy-of-software-design", "Craig Mod", "2025-06-29", 5),
-		newBookReview("Glass Century", "a-philosophy-of-software-design", "Ross Barkan", "2025-06-21", 5),
-		newBookReview("Abundance", "a-philosophy-of-software-design", "Ezra Klein and Derek Thompson", "2025-05-16", 3),
-		newBookReview("Careless People", "a-philosophy-of-software-design", "Sarah Wynn-Williams", "2025-04-06", 4),
-		newBookReview("Land is a Big Deal", "a-philosophy-of-software-design", "Lars A. Doucet", "2025-03-22", 5),
-		newBookReview("Cyberlibertarianism", "a-philosophy-of-software-design", "David Golumbia", "2025-02-23", 2),
-		newBookReview("Useful Not True", "a-philosophy-of-software-design", "Derek Sivers", "2025-02-15", 4),
-		newBookReview("The Hidden Wealth of Nations", "a-philosophy-of-software-design", "Gabriel Zucman", "2025-02-08", 4),
+		// newBookReview("Apple in China", "a-philosophy-of-software-design", "Patrick McGee", "2026-02-11", 5),
+		// newBookReview("Six Centuries of Type and Printing", "a-philosophy-of-software-design", "Glenn Fleishman", "2026-02-01", 4),
+		// newBookReview("Pageboy", "a-philosophy-of-software-design", "Elliot Page", "2026-01-14", 4),
+		// newBookReview("Every Day Is For The Thief", "a-philosophy-of-software-design", "Teju Cole", "2026-01-10", 5),
+		// newBookReview("There Is No Antimemetics Division", "a-philosophy-of-software-design", "qntm", "2025-12-14", 2),
+		// newBookReview("The Fort Bragg Cartel", "a-philosophy-of-software-design", "Seth Harp", "2025-12-02", 5),
+		// newBookReview("Jesus and John Wayne", "a-philosophy-of-software-design", "Kristin Kobes Du Mez", "2025-11-27", 4),
+		// newBookReview("Ways and Means", "a-philosophy-of-software-design", "Daniel Lefferts", "2025-11-15", 4),
+		// newBookReview("Bad Monkey", "a-philosophy-of-software-design", "Carl Hiaasen", "2025-11-06", 3),
+		// newBookReview("Timequake", "a-philosophy-of-software-design", "Kurt Vonnegut", "2025-10-15", 4),
+		// newBookReview("Jewish Space Lasers", "a-philosophy-of-software-design", "Mike Rothschild", "2025-10-07", 3),
+		// newBookReview("Uncommon Carriers", "a-philosophy-of-software-design", "John McPhee", "2025-09-05", 4),
+		// newBookReview("Dawn", "a-philosophy-of-software-design", "Octavia E. Butler", "2025-08-23", 5),
+		// newBookReview("Radio Free Albemuth", "a-philosophy-of-software-design", "Philip K Dick", "2025-07-27", 3),
+		// newBookReview("Unruly", "a-philosophy-of-software-design", "David Mitchell", "2025-07-21", 3),
+		// newBookReview("Things Become Other Things", "a-philosophy-of-software-design", "Craig Mod", "2025-06-29", 5),
+		// newBookReview("Glass Century", "a-philosophy-of-software-design", "Ross Barkan", "2025-06-21", 5),
+		// newBookReview("Abundance", "a-philosophy-of-software-design", "Ezra Klein and Derek Thompson", "2025-05-16", 3),
+		// newBookReview("Careless People", "a-philosophy-of-software-design", "Sarah Wynn-Williams", "2025-04-06", 4),
+		// newBookReview("Land is a Big Deal", "a-philosophy-of-software-design", "Lars A. Doucet", "2025-03-22", 5),
+		// newBookReview("Cyberlibertarianism", "a-philosophy-of-software-design", "David Golumbia", "2025-02-23", 2),
+		// newBookReview("Useful Not True", "a-philosophy-of-software-design", "Derek Sivers", "2025-02-15", 4),
+		// newBookReview("The Hidden Wealth of Nations", "a-philosophy-of-software-design", "Gabriel Zucman", "2025-02-08", 4),
 	}
 	sortBooks(books)
 
@@ -67,7 +67,9 @@ func NewStore(queries *db.Queries) *Store {
 			// newEntryWithQueries("projects", "portfolio-v1", "Portfolio v1", "Project entry placeholder.", now.AddDate(0, -1, 0), []string{"project", "web"}),
 		},
 		"micro": {
-			newEntry("micro", "m-001", "Effect notes: PRs, progress, and joys", "Short-form placeholder entry.", time.Now().AddDate(0, 0, -4), []string{"micro"}),
+			newEntry("micro", "m-001", "hey user", "Short-form placeholder entry.", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"micro"}),
+			newEntry("micro", "m-002", "I don't like it when people use the phrase 'I don't get how someone can do x'", "just say you dont like it", time.Date(2026, time.March, 30, 0, 0, 0, 0, time.UTC), []string{"micro"}),
+
 			// newEntry("micro", "m-002", "Placemark & OSS changelog", "Another short-form placeholder.", now.AddDate(0, 0, -7), []string{"micro"}),
 			// newEntry("micro", "m-003", "ROOTS - Return Old Online Things to your own Site", "Another short-form placeholder.", now.AddDate(0, 0, -10), []string{"micro"}),
 			// newEntry("micro", "m-004", "Reactionary AI Centrism", "Another short-form placeholder.", now.AddDate(0, 1, -8), []string{"micro"}),
@@ -110,6 +112,14 @@ func (s *Store) commentsForEntry(section, slug string) []db.GetCommentsBySlugRow
 	rows, err := s.queries.GetCommentsBySlug(ctx, pathSlug)
 	if err == nil && len(rows) > 0 {
 		return rows
+	}
+	for i := range rows {
+		fmt.Print(rows[i].ID)
+		fmt.Print(rows[i].Name)
+		fmt.Print(rows[i].Content)
+		fmt.Print(rows[i].Slug)
+		fmt.Print(rows[i].CreatedAt)
+		fmt.Print(rows[i].ParentID)
 	}
 
 	fallbackRows, fallbackErr := s.queries.GetCommentsBySlug(ctx, slug)

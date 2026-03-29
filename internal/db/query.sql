@@ -11,7 +11,7 @@ WITH RECURSIVE CommentHierarchy AS (
     JOIN CommentHierarchy ch ON c.parent_id = ch.id
 ) 
 SELECT * FROM CommentHierarchy
-ORDER BY path, created_at;
+ORDER BY path ASC, created_at DESC;
 -- WITH RECURSIVE CommentHierarchy AS (
 --     SELECT id, name, content, slug, created_at, parent_id, 0 AS depth, name as path
 --     FROM comments ch

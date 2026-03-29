@@ -70,7 +70,7 @@ WITH RECURSIVE CommentHierarchy AS (
     JOIN CommentHierarchy ch ON c.parent_id = ch.id
 ) 
 SELECT id, name, content, slug, created_at, parent_id, depth, path FROM CommentHierarchy
-ORDER BY path, created_at
+ORDER BY path ASC, created_at DESC
 `
 
 type GetCommentsBySlugRow struct {
@@ -91,6 +91,7 @@ func (q *Queries) GetCommentsBySlug(ctx context.Context, slug string) ([]GetComm
 	}
 	defer rows.Close()
 	var items []GetCommentsBySlugRow
+
 	for rows.Next() {
 		var i GetCommentsBySlugRow
 		if err := rows.Scan(
