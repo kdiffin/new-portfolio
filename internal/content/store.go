@@ -70,6 +70,7 @@ func NewStore(queries *db.Queries) *Store {
 			newEntry("micro", "m-001", "hey user", "Short-form placeholder entry.", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			newEntry("micro", "m-002", "I don't like it when people use the phrase 'I don't get how someone can do x'", "just say you dont like it", time.Date(2026, time.March, 30, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 
+			newEntry("micro", "m-003", "chatgpt's way of speech when it knows you're a tech bro is so fucking annoying ", "dude when I ask how to manage my busy schedule there's no reason you should tie that to how that 'will make me a great AI engineer' sob emoji", time.Date(2026, time.March, 31, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			// newEntry("micro", "m-002", "Placemark & OSS changelog", "Another short-form placeholder.", now.AddDate(0, 0, -7), []string{"micro"}),
 			// newEntry("micro", "m-003", "ROOTS - Return Old Online Things to your own Site", "Another short-form placeholder.", now.AddDate(0, 0, -10), []string{"micro"}),
 			// newEntry("micro", "m-004", "Reactionary AI Centrism", "Another short-form placeholder.", now.AddDate(0, 1, -8), []string{"micro"}),
