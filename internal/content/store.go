@@ -52,7 +52,7 @@ func NewStore(queries *db.Queries) *Store {
 
 	seed := map[string][]*models.Entry{
 		"writing": {
-			newEntry("writing", "2-types-of-work", "Computer-related work is split into 2 parts", "cant be bothered to write a summary for seo", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"intro", "site"}),
+			newEntry("writing", "2-types-of-work", "Software work is split into 2 parts", "cant be bothered to write a summary for seo", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"intro", "site"}),
 			// newEntry("writing", "recently", "Recently", "A rolling updates post.", now.AddDate(0, 0, -21), []string{"notes"}),
 			// newEntry("writing", "new-tote", "New tote bag", "A short field note.", now.AddDate(0, 0, -26), []string{"notes"}),
 			// newEntry("writing", "color-dithering", "Color dithering", "A practical write-up.", now.AddDate(0, 0, -29), []string{"design"}),
