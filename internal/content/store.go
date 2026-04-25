@@ -53,14 +53,7 @@ func NewStore(queries *db.Queries) *Store {
 	seed := map[string][]*models.Entry{
 		"writing": {
 			newEntry("writing", "2-types-of-work", "Software work is split into 2 parts", "cant be bothered to write a summary for seo", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"intro", "site"}),
-			// newEntry("writing", "recently", "Recently", "A rolling updates post.", now.AddDate(0, 0, -21), []string{"notes"}),
-			// newEntry("writing", "new-tote", "New tote bag", "A short field note.", now.AddDate(0, 0, -26), []string{"notes"}),
-			// newEntry("writing", "color-dithering", "Color dithering", "A practical write-up.", now.AddDate(0, 0, -29), []string{"design"}),
-			// newEntry("writing", "sketches", "Sketches", "A collection of experiments.", now.AddDate(0, 1, -22), []string{"drawing"}),
-			// newEntry("writing", "theme-selector", "Theme selector", "How to implement theme preferences.", now.AddDate(0, 3, -14), []string{"site"}),
-			// newEntryWithQueries("writing", "specifiers-history", "A brief history of specifiers and protocols", "Protocol and URL conventions.", now.AddDate(0, 3, -15), []string{"tech"}),
-			// newEntryWithQueries("writing", "year-review", "2025 Year in Review", "Annual review and notes.", now.AddDate(0, 3, -16), []string{"review"}),
-			// newEntryWithQueries("writing", "dec-recently", "Recently", "Another rolling post.", now.AddDate(0, 3, -22), []string{"notes"}),
+			newEntry("writing", "engineers-should-think", "To be an engineer, is to think, yet we're told not?", "Everything being measured via velocity and output has ruined our learning.", time.Date(2026, time.April, 26, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 		},
 
 		"projects": {
@@ -73,12 +66,6 @@ func NewStore(queries *db.Queries) *Store {
 			newEntry("micro", "m-003", "chatgpt's way of speech when it knows you're a tech bro is so fucking annoying ", "dude when I ask how to manage my busy schedule there's no reason you should tie that to how that 'will make me a great AI engineer' sob emoji", time.Date(2026, time.March, 31, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			newEntry("micro", "m-004", "i like using the word orthogonal", "things in software shouldn't know about eachothers internals (hot take i know!!1)", time.Date(2026, time.April, 13, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			newEntry("micro", "m-005", "How to know if someone's in AI psychosis", "control theory distributed system high signal buzzword.", time.Date(2026, time.April, 19, 0, 0, 0, 0, time.UTC), []string{"micro"}),
-			newEntry("micro", "m-006", "To be an engineer, is to think, yet we're told not?", "Everything being measured via velocity and output has ruined our learning.", time.Date(2026, time.April, 26, 0, 0, 0, 0, time.UTC), []string{"micro"}),
-
-			// newEntry("micro", "m-002", "Placemark & OSS changelog", "Another short-form placeholder.", now.AddDate(0, 0, -7), []string{"micro"}),
-			// newEntry("micro", "m-003", "ROOTS - Return Old Online Things to your own Site", "Another short-form placeholder.", now.AddDate(0, 0, -10), []string{"micro"}),
-			// newEntry("micro", "m-004", "Reactionary AI Centrism", "Another short-form placeholder.", now.AddDate(0, 1, -8), []string{"micro"}),
-			// newEntry("micro", "m-005", "Media diet", "Another short-form placeholder.", now.AddDate(0, 1, -15), []string{"micro"}),
 		},
 		"books": {},
 	}
