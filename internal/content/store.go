@@ -53,7 +53,6 @@ func NewStore(queries *db.Queries) *Store {
 	seed := map[string][]*models.Entry{
 		"writing": {
 			newEntry("writing", "2-types-of-work", "Software work is split into 2 parts", "cant be bothered to write a summary for seo", time.Date(2026, time.March, 28, 0, 0, 0, 0, time.UTC), []string{"intro", "site"}),
-			newEntry("writing", "engineers-should-think", "To be an engineer, is to think, yet we're told not?", "Everything being measured via velocity and output has ruined our learning.", time.Date(2026, time.April, 26, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 		},
 
 		"projects": {
@@ -66,6 +65,7 @@ func NewStore(queries *db.Queries) *Store {
 			newEntry("micro", "m-003", "chatgpt's way of speech when it knows you're a tech bro is so fucking annoying ", "dude when I ask how to manage my busy schedule there's no reason you should tie that to how that 'will make me a great AI engineer' sob emoji", time.Date(2026, time.March, 31, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			newEntry("micro", "m-004", "i like using the word orthogonal", "things in software shouldn't know about eachothers internals (hot take i know!!1)", time.Date(2026, time.April, 13, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 			newEntry("micro", "m-005", "How to know if someone's in AI psychosis", "control theory distributed system high signal buzzword.", time.Date(2026, time.April, 19, 0, 0, 0, 0, time.UTC), []string{"micro"}),
+			newEntry("micro", "m-006", "To be an engineer, is to think, yet we're told not?", "Everything being measured via velocity and output has ruined our learning.", time.Date(2026, time.April, 26, 0, 0, 0, 0, time.UTC), []string{"micro"}),
 		},
 		"books": {},
 	}
